@@ -2,7 +2,7 @@
         (
             function(){
                 'use strict';
-                angular.module('scrumboard-demo', [])
+                angular.module('scrumboard.demo', [])
                     .controller('ScrumBoardController', ['$scope', '$http', ScrumBoardController]);
                 
                 function ScrumBoardController($scope, $http){
