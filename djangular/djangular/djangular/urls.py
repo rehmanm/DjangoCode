@@ -22,4 +22,6 @@ urlpatterns = [
     
     url(r'^$', TemplateView.as_view(template_name = "scrumboard/home.html")),
     url(r'^scrumboard/', include('scrumboard.urls')),
+    url(r'^auth_api/', include('auth_api.urls')),
+    
 ]
