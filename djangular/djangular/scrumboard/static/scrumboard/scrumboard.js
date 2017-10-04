@@ -6,7 +6,7 @@
                     .controller('ScrumBoardController', ['$scope', '$http', ScrumBoardController]);
                 
                 function ScrumBoardController($scope, $http){
-                    $scope.data =[];
+                    
 
                     $scope.add = function(list, title){
                         var card = {
@@ -23,7 +23,14 @@
                         });
 
                     };
+                    $scope.login = function(){
 
+                        $http.post('/auth_api/login/', {
+                            username: 'rehmanm', password: 'djangular123'
+                        });
+                    };    
+
+                    $scope.data =[];
                     $http.get('/scrumboard/lists/').then(function(response){
                         $scope.data = response.data;
                     })
