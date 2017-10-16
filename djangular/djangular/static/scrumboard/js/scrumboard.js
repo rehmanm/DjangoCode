@@ -2,10 +2,10 @@
         (
             function(){
                 'use strict';
-                angular.module('scrumboard.demo', [])
-                    .controller('ScrumBoardController', ['$scope', '$http', ScrumBoardController]);
+                angular.module('scrumboard.demo', ['ngRoute'])
+                    .controller('ScrumBoardController', ['$scope', '$http', '$location', ScrumBoardController]);
                 
-                function ScrumBoardController($scope, $http){
+                function ScrumBoardController($scope, $http, $location){
                     
 
                     $scope.add = function(list, title){
@@ -23,12 +23,20 @@
                         });
 
                     };
-                    $scope.login = function(){
+                    $scope.logout = function(){
+                        $http.get('/auth_api/logout/').then(
+                            function() {
+                                $location.url('/login');
+                            });
+                        
 
-                        $http.post('/auth_api/login/', {
-                            username: 'rehmanm', password: 'djangular123'
-                        });
-                    };    
+                    };
+                    // $scope.login = function(){
+
+                    //     $http.post('/auth_api/login/', {
+                    //         username: 'rehmanm', password: 'djangular123'
+                    //     });
+                    // };    
 
                     $scope.data =[];
                     $http.get('/scrumboard/lists/').then(function(response){
