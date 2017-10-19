@@ -3,9 +3,9 @@
             function(){
                 'use strict';
                 angular.module('scrumboard.demo', ['ngRoute'])
-                    .controller('ScrumBoardController', ['$scope', '$http', '$location', ScrumBoardController]);
+                    .controller('ScrumBoardController', ['$scope', '$http', 'Login', ScrumBoardController]);
                 
-                function ScrumBoardController($scope, $http, $location){
+                function ScrumBoardController($scope, $http, Login){
                     
 
                     $scope.add = function(list, title){
@@ -23,14 +23,14 @@
                         });
 
                     };
-                    $scope.logout = function(){
-                        $http.get('/auth_api/logout/').then(
-                            function() {
-                                $location.url('/login');
-                            });
+                    // $scope.logout = function(){
+                    //     $http.get('/auth_api/logout/').then(
+                    //         function() {
+                    //             $location.url('/login');
+                    //         });
                         
 
-                    };
+                    // };
                     // $scope.login = function(){
 
                     //     $http.post('/auth_api/login/', {
@@ -38,15 +38,16 @@
                     //     });
                     // };    
 
+                    Login.redirectIfNotLoggedIn();
                     $scope.data =[];
-                    $http.get('/scrumboard/lists/').then(function(response){
-                        $scope.data = response.data;
-                    })
-
-
+                    $scope.logout = Login.logout;
                     $scope.sortBy = "story_points";
                     $scope.reverse = true;
                     $scope.showFilters = false;
+                        $http.get('/scrumboard/lists/').then(function(response){
+                            $scope.data = response.data;
+                        });
+                    
 
                 }
 
